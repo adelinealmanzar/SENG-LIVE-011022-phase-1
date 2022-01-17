@@ -174,10 +174,14 @@ console.log("------------------------");
 // 2. a `delay` number representing the number of milliseconds we'll have to wait before we see our reward
 // The `delayedGratification` function should invoke the `reward` function after `delay` milliseconds have passed.
 
+function reward() {
+	console.log(`For dinner tonight, you'll be feasting on macarooni`);
+}
 
+function delayedGratification(reward, delay) {
+	setTimeout(reward, delay);
+}
 
-// To test, uncomment the code below
-
-// delayedGratification(reward, 3000);
+console.log(delayedGratification(reward, 3000));
 
 // When you uncomment the code above, you should see your reward message appear in the browser console after 3 seconds have elapsed.

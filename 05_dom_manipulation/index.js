@@ -67,12 +67,12 @@ const playlist = [
   }
 ]
 // 🚧 🚧 🚧 assign variables for important DOM elements
-const playlistElement =  ____;
-const playlistDurationElement = ____;
-const songNameElement = ____;
-const artistNameElement = ____;
-const playCountElement = ____;
-const playerElement = ____;
+const playlistElement =  document.querySelector('#playlist');
+const playlistDurationElement = document.querySelector('#totalDuration');
+const songNameElement = document.querySelector('#song-name');
+const artistNameElement = document.querySelector('#artist');
+const playCountElement = document.querySelector('#play-count');
+const playerElement = document.querySelector('#player-form');
 
 
 // this function will take the array as an argument and return the next id.
@@ -119,14 +119,18 @@ function renderSong(song) {
   li.className = "flex justify-between p-2 pr-4 cursor-pointer"
   li.innerHTML = `
   <div>
-    <span class="song font-semibold">${song.name}</span>
-    <span class="artist text-gray-400">by ${song.artist}</span>
+    <span class="song font-semibold"></span>
+    <span class="artist text-gray-400"></span>
   </div>
   <div class="duration text-gray-400">${formatDuration(song.duration)}</div>`
+  const songEl = li.querySelector('.song');
+  const artistEl = li.querySelector('.artist');
+  songEl.textContent = `${song.name}`
+  artistEl.textContent = `by ${song.artist}`
   // fill in the blank below with the code needed to find the
   // element on the page where we want to append the li
   // 🚧 🚧 🚧
-  ____.append(li);
+  playlistElement.append(li);
   return li;
 }
 
@@ -134,13 +138,13 @@ function renderSong(song) {
 function loadPlaylistToSidebar(playlist) {
   // 🚧 🚧 🚧 write the code needed to load all songs in the playlist
   // into the sidebar
-  ____
+  playlist.forEach(renderSong);
  
 }
 
 // // 👟👟👟 uncomment the line below to test
 
-// loadPlaylistToSidebar(playlist);
+loadPlaylistToSidebar(playlist);
 
 // once we've got the songs loaded into the sidebar,
 // we'll update the playlist array up top to demonstrate
@@ -154,21 +158,21 @@ function addSongToPlaylist(playlist, song) {
   })
   playlist.push(newSong);
   // 🚧 🚧 🚧 Update the DOM with the new song in the sidebar
-  ____
+  renderSong(newSong);
   return song;
 }
 
 // // 👟👟👟 uncomment the lines below to test
 
-// window.setTimeout(() => {
-//   console.log('addSongToPlaylist', addSongToPlaylist(playlist, {
-//     name: "Georgia On My Mind",
-//     artist: 'Ray Charles',
-//     duration: 217,
-//     youtubeLink: 'https://www.youtube.com/watch?v=ggGzE5KfCio'
-//   })) 
-//   console.log('playlist after addSongToPlaylist', copy(playlist))
-// }, 1000)
+window.setTimeout(() => {
+  console.log('addSongToPlaylist', addSongToPlaylist(playlist, {
+    name: "Georgia On My Mind",
+    artist: 'Ray Charles',
+    duration: 217,
+    youtubeLink: 'https://www.youtube.com/watch?v=ggGzE5KfCio'
+  })) 
+  console.log('playlist after addSongToPlaylist', copy(playlist))
+}, 1000)
 
 // ✅ Removing DOM elements
 
@@ -210,14 +214,15 @@ function extractVideoID(url) {
 // 🚧 🚧 🚧
 function loadSongIntoPlayer(song) {
   // target the songName element and put the song's name inside
-
+  songNameElement.textContent = song.name; //key in object
   // get the artist element and put the artist's name inside of it
-
+  artistNameElement.textContent = song.artist; //key in object
   // get the play count element and put the song's playCount into it
-
+  playCount.textContent = `${song.playCount} plays(s)`;
   // get the playerElement and use the extractVideoID function as 
   // in the example below to set the src attribute of the iframe
   //`https://www.youtube.com/embed/${extractVideoID(song.youtubeLink)}`;
+  playerElement.src = `https://www.youtube.com/embed/${extractVideoID(song.youtubeLink)}`;
 }
 
 
@@ -225,7 +230,7 @@ function loadSongIntoPlayer(song) {
 // // 👟👟👟 uncomment the lines below to test
 
 
-// loadSongIntoPlayer(playlist[0]);
+loadSongIntoPlayer(playlist[0]);
 // loadSongIntoPlayer(playlist[1]);
 // loadSongIntoPlayer(playlist[2]);
 // loadSongIntoPlayer(playlist[3]);
